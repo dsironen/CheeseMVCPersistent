@@ -11,9 +11,10 @@ using System;
 namespace CheeseMVC.Migrations
 {
     [DbContext(typeof(CheeseDbContext))]
-    partial class CheeseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180131050359_MenusAndCheeseMenuAdditionsToVS")]
+    partial class MenusAndCheeseMenuAdditionsToVS
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,13 +53,13 @@ namespace CheeseMVC.Migrations
 
             modelBuilder.Entity("CheeseMVC.Models.CheeseMenu", b =>
                 {
-                    b.Property<int>("CheeseID");
-
                     b.Property<int>("MenuID");
 
-                    b.HasKey("CheeseID", "MenuID");
+                    b.Property<int>("CheeseID");
 
-                    b.HasIndex("MenuID");
+                    b.HasKey("MenuID", "CheeseID");
+
+                    b.HasIndex("CheeseID");
 
                     b.ToTable("CheeseMenus");
                 });
@@ -86,7 +87,7 @@ namespace CheeseMVC.Migrations
             modelBuilder.Entity("CheeseMVC.Models.CheeseMenu", b =>
                 {
                     b.HasOne("CheeseMVC.Models.Cheese", "Cheese")
-                        .WithMany("CheeseMenus")
+                        .WithMany()
                         .HasForeignKey("CheeseID")
                         .OnDelete(DeleteBehavior.Cascade);
 
